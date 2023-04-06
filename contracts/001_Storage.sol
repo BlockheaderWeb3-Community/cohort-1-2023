@@ -18,7 +18,8 @@ contract Storage {
         owner = _owner;
     }
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "Only the owner can set the number");
+
         _;
     }
     
