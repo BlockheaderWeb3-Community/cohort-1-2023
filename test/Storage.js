@@ -16,7 +16,6 @@ describe("Storage Test Suite", async () => {
 
     describe("Deployment", async () => {
         it("should set the right owner", async function () {
-            console.log("owner ___", owner.address)
             expect(await storageContract.owner()).to.equal(owner.address);
             expect(await storageContract.owner()).to.not.equal(addr1.address)
             expect(await storageContract.owner()).to.not.equal(addr2.address)
