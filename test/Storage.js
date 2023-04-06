@@ -48,7 +48,7 @@ describe("Storage Test Suite", async () => {
 
         it("Should revert if called by a non-owner address", async () => {
             await expect(storageContract.connect(addr2).changeNumber(42)).to.be.revertedWith("Only the owner can set the number");
-            // expect(await storageContract.changeNumber()).to.equal(0);
+        
           });
 
         it("should return myAddress in Storage contract", async function () {
