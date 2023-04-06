@@ -12,7 +12,6 @@ describe("Storage Test Suite", async () => {
         [owner, addr1, addr2] = await ethers.getSigners();
         const StorageContract = await ethers.getContractFactory("Storage")
         storageContract = await StorageContract.deploy(owner.address)
-        console.log("storage contract address__", storageContract.address)
     })
 
     describe("Deployment", async () => {
@@ -48,7 +47,6 @@ describe("Storage Test Suite", async () => {
 
         it("Should revert if called by a non-owner address", async () => {
             await expect(storageContract.connect(addr2).changeNumber(42)).to.be.revertedWith("Only the owner can set the number");
-        
           });
 
         it("should return myAddress in Storage contract", async function () {
