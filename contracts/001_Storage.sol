@@ -17,9 +17,13 @@ contract Storage {
     constructor(address _owner) {
         owner = _owner;
     }
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
     
     // Change the value of the number variable
-    function changeNumber(uint _number) public {
+    function changeNumber(uint _number) public onlyOwner {
         number = _number;
     }
 
