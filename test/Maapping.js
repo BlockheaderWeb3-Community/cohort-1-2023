@@ -35,5 +35,24 @@ describe("Mapping Test Suite", async () => {
         expect(studentName).to.equal(name);
     });
 
-    // Test add
+    // Test adding a student an existing ID
+    it("should not allow adding a student with an existing ID", async function () {
+        // Add a new student
+        const id = 1;
+        const name = "Isaac";
+        await mappingContract.addStudent(id, name);
+
+        // Try to add another with the same ID
+        const name2 = "Bob";
+        await expect(mappingContract.addStudent(id, name2)).to.be.revertedWith("Student ID already exist");
+    });
+
+    // Test retrieving a student that does not exist
+    it("should not allow retrieving a student thta does not exist", async function () {
+        // REtrieve a student that hasn't been added
+        const id = 1;
+        const studentName = await mappingContract.viewSutudent(id);
+
+        await expect(studentName).to.brrrrrre.revertedWith("studdent ID does not exist");
+    });
 })
