@@ -3,7 +3,7 @@
 pragma solidity ^0.8.17;
 
 // Declare the contract
-contract Mappings{
+contract Mapping{
 
     // Declare a mapping that associates uint keys with string values.
     mapping(uint => string) students;
