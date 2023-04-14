@@ -12,12 +12,10 @@ describe("Storage Test Suite", async () => {
         [owner, addr1, addr2] = await ethers.getSigners();
         const StorageContract = await ethers.getContractFactory("Storage")
         storageContract = await StorageContract.deploy(owner.address)
-        console.log("storage contract address__", storageContract.address)
     })
 
     describe("Deployment", async () => {
         it("should set the right owner", async function () {
-            console.log("owner ___", owner.address)
             expect(await storageContract.owner()).to.equal(owner.address);
             expect(await storageContract.owner()).to.not.equal(addr1.address)
             expect(await storageContract.owner()).to.not.equal(addr2.address)
@@ -25,14 +23,14 @@ describe("Storage Test Suite", async () => {
     })
 
     describe("Transactions", async () => {
-        it("should change number", async function () {
+        it("Should set number if called by owner", async function () {
             const num1 = 100
             const num2 = 150
-            await storageContract.changeNumber(num1)
+            await storageContract.connect(owner).changeNumber(num1)
 
             const number = await storageContract.number()
             expect(number).to.eq(num1)
-            expect(number).to.not.eq(0)
+            expect(number).to.not.eq(10)
             expect(number).to.not.eq(5)
             expect(number).to.not.eq(num2)
 
@@ -46,12 +44,17 @@ describe("Storage Test Suite", async () => {
             expect(number2).to.not.eq(num1)
         });
 
+        it("Should revert if called by a non-owner address", async () => {
+            await expect(storageContract.connect(addr2).changeNumber(42)).to.be.revertedWith("Only the owner can set the number");
+          });
+
         it("should return myAddress in Storage contract", async function () {
             const storedMyAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"
             expect(await storageContract.viewAddress()).to.eq(storedMyAddress)
             expect(await storageContract.viewAddress()).to.not.eq(addr2.address)
         });
-    })
-
-
+    });
 });
+
+
+
