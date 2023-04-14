@@ -31,14 +31,14 @@ contract CohortBank {
 
 
    // spot the error here
-  function deposit() public payable {
+  function deposit(uint256 amount) public payable {
         // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
         // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-        require(msg.value > 0, "cannot deposit 0 amount");
-        balances[msg.sender] += msg.value;
-        totalCohortBalance += msg.value;
+        require(amount > 0, "cannot deposit 0 amount");
+        balances[msg.sender] += amount;
+        totalCohortBalance += amount;
 
-        emit Deposit(msg.value, block.timestamp, msg.sender);
+        emit Deposit(amount, block.timestamp, msg.sender);
     }
 
     // buggy withdraw function
@@ -50,9 +50,9 @@ contract CohortBank {
 
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
         require(msg.sender == owner, "You aren't the owner");
+        balances[msg.sender] = 0;
 
         emit Withdrawal(address(this).balance, block.timestamp);
-
         owner.transfer(address(this).balance);
     }
 }
