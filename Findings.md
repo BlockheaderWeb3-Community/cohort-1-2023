@@ -1,0 +1,2 @@
+- I added a paramater of uint named in the withdraw function.
+- I also ensured that only the owner can successfully make withdrawals.
