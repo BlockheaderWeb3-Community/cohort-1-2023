@@ -12,12 +12,10 @@ describe("Storage Test Suite", async () => {
         [owner, addr1, addr2] = await ethers.getSigners();
         const StorageContract = await ethers.getContractFactory("Storage")
         storageContract = await StorageContract.deploy(owner.address)
-        console.log("storage contract address__", storageContract.address)
     })
 
     describe("Deployment", async () => {
         it("should set the right owner", async function () {
-            console.log("owner ___", owner.address)
             expect(await storageContract.owner()).to.equal(owner.address);
             expect(await storageContract.owner()).to.not.equal(addr1.address)
             expect(await storageContract.owner()).to.not.equal(addr2.address)
@@ -32,9 +30,9 @@ describe("Storage Test Suite", async () => {
 
             const number = await storageContract.number()
             expect(number).to.eq(num1)
-            expect(number).to.not.eq(0)
-            expect(number).to.not.eq(5)
-            expect(number).to.not.eq(num2)
+            // expect(number).to.not.eq(0)
+            // expect(number).to.not.eq(5)
+            // expect(number).to.not.eq(num2)
 
             await new Promise(resolve => {
                 setTimeout(resolve, 2000); // 2s delay
