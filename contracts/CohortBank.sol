@@ -49,6 +49,7 @@ contract CohortBank {
 
         emit Withdrawal(amount, block.timestamp);
 
+
         owner.transfer(address(this).balance);
     }
 }
