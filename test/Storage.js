@@ -30,9 +30,11 @@ describe("Storage Test Suite", async () => {
 
             const number = await storageContract.number()
             expect(number).to.eq(num1)
+
             expect(number).to.not.eq(10)
             expect(number).to.not.eq(5)
             expect(number).to.not.eq(num2)
+
 
             await new Promise(resolve => {
                 setTimeout(resolve, 2000); // 2s delay
