@@ -41,17 +41,15 @@ contract CohortBank {
         emit Deposit(msg.value, block.timestamp, msg.sender);
     }
 
-    // buggy withdraw function
-    // spot this bug
-    // add your findings to findings.md
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
 
+   
+    function withdraw(uint256 amount) public {
+  
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
         require(msg.sender == owner, "You aren't the owner");
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+        emit Withdrawal(amount, block.timestamp);
+
 
         owner.transfer(address(this).balance);
     }
