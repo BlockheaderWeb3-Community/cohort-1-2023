@@ -41,6 +41,7 @@ contract CohortBank {
         emit Deposit(msg.value, block.timestamp, msg.sender);
     }
 
+
    
     function withdraw(uint256 amount) public {
   
@@ -48,6 +49,7 @@ contract CohortBank {
         require(msg.sender == owner, "You aren't the owner");
 
         emit Withdrawal(amount, block.timestamp);
+
 
         owner.transfer(address(this).balance);
     }
